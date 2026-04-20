@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-asl-brand: #1E3A8A;
+  --color-asl-accent: #2563EB;
+  
+  --color-asl-bg: var(--bg);
+  --color-asl-surface: var(--surface);
+  --color-asl-text-primary: var(--text-primary);
+  --color-asl-text-secondary: var(--text-secondary);
+  --color-asl-border: var(--border);
+
+  --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-2xl: 16px;
+  --radius-xl: 12px;
+
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes shimmer {
+    to { background-position: 200% center; }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+:root {
+  --bg: #FFFFFF;
+  --surface: #F8FAFC;
+  --text-primary: #0F172A;
+  --text-secondary: #6B7280;
+  --border: #E5E7EB;
+}
+
+.dark {
+  --bg: #0F172A;
+  --surface: #1F2937;
+  --text-primary: #F9FAFB;
+  --text-secondary: #9CA3AF;
+  --border: #374151;
+}
+
+@layer base {
+  body {
+    @apply bg-asl-bg text-asl-text-primary antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "onum";
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  * {
+    @apply border-asl-border transition-colors duration-300;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply tracking-tight font-bold text-asl-text-primary;
+  }
+}
+
+@layer utilities {
+  .glass-nav {
+    @apply bg-asl-bg/70 backdrop-blur-xl sticky top-0 z-50 border-b border-asl-border/30;
+  }
+
+  .container-custom {
+    @apply max-w-[1280px] mx-auto px-6 lg:px-8;
+  }
+
+  .shimmer-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-asl-text-primary via-asl-accent to-asl-text-primary bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite];
+  }
+
+  .premium-gradient {
+    @apply bg-gradient-to-br from-asl-brand via-asl-accent to-blue-400;
+  }
+
+  .premium-card {
+    @apply bg-asl-surface border border-asl-border/50 relative overflow-hidden transition-all duration-500 hover:border-asl-accent/40;
+  }
+
+  .glow-overlay {
+    @apply absolute -inset-px bg-gradient-to-br from-asl-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none;
+  }
+}
