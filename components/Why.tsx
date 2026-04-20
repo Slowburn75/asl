@@ -19,6 +19,7 @@ import {
     Landmark,
     ChevronDown
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // --- DATA ---
 
@@ -80,8 +81,6 @@ const comparisonData = [
     },
 ];
 
-// --- COMPONENTS ---
-
 export const Why = () => {
     return (
         <>
@@ -106,110 +105,155 @@ const WhyUsAccordion = () => {
     const activeReason = whyReasons[activeIndex];
 
     return (
-        <section className="pt-20 pb-10 lg:pt-32 lg:pb-16 bg-white dark:bg-[#0F172A] transition-colors relative">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <section
+            id="why"
+            className="pt-20 pb-10 lg:pt-32 lg:pb-16 bg-asl-bg transition-colors relative overflow-hidden"
+        >
+            <div className="container-custom">
+
                 {/* HEADER */}
-                <div className="grid lg:grid-cols-2 gap-10 items-start mb-16 lg:mb-20">
-
-                    {/* LEFT */}
-                    <div>
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-6">
-                            <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-                            WHY ASL
-                        </div>
-
-                        <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
-                            Everything you need,<br />
-                            built for scale.
-                        </h2>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="flex flex-col items-center text-center mb-20 max-w-3xl mx-auto"
+                >
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-asl-accent/10 text-asl-accent text-sm font-semibold mb-6">
+                        <span className="w-2 h-2 rounded-full bg-asl-accent"></span>
+                        WHY ASL
                     </div>
 
-                    {/* RIGHT */}
-                    <div className="lg:pt-14">
-                        <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg">
-                            All the features you need to run payroll smoothly and efficiently.
-                        </p>
-                    </div>
-                </div>
+                    <h2 className="text-4xl lg:text-6xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-6">
+                        Everything you need,<br />
+                        built for scale.
+                    </h2>
+
+                    <p className="text-lg lg:text-xl text-asl-text-secondary leading-relaxed font-medium">
+                        All the features you need to run payroll smoothly and efficiently.
+                    </p>
+                </motion.div>
 
                 {/* CONTENT GRID */}
-                <div className="grid lg:grid-cols-[35%_65%] gap-12 lg:gap-16 items-start">
+                <div className="grid lg:grid-cols-[35%_65%] gap-10 lg:gap-14 items-start min-h-[800px]">
 
-                    {/* ACCORDION LIST */}
-                    <div className="flex flex-col gap-4">
+                    {/* ACCORDION */}
+                    <div className="flex flex-col gap-3">
                         {whyReasons.map((reason, i) => {
                             const isActive = activeIndex === i;
                             const Icon = reason.icon;
+
                             return (
-                                <div
+                                <motion.div
                                     key={i}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.08 }}
                                     onClick={() => setActiveIndex(i)}
-                                    className={`border rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ${isActive
-                                        ? "border-blue-500 bg-blue-50/50 dark:bg-blue-900/10 dark:border-blue-500/50 shadow-md"
-                                        : "border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1F2937] hover:border-blue-300 dark:hover:border-gray-600"
+                                    className={`border rounded-md overflow-hidden cursor-pointer transition-all duration-500 ${isActive
+                                        ? "border-asl-accent bg-asl-surface shadow-lg shadow-asl-accent/5"
+                                        : "border-asl-border bg-asl-surface hover:border-asl-accent/40"
                                         }`}
                                 >
-                                    <div className="p-6 md:p-8 flex items-center justify-between gap-4">
-                                        <div className="flex items-center gap-5">
+                                    {/* HEADER */}
+                                    <div className="p-4 md:p-5 flex items-center justify-between gap-4">
+                                        <div className="flex items-center gap-4">
                                             <div
-                                                className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${isActive
-                                                    ? "bg-blue-600 text-white"
-                                                    : "bg-gray-100 dark:bg-[#111827] text-gray-500 dark:text-gray-400"
+                                                className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 transition-colors duration-500 ${isActive
+                                                    ? "bg-asl-accent text-white"
+                                                    : "bg-asl-bg text-asl-text-secondary"
                                                     }`}
                                             >
-                                                <Icon strokeWidth={isActive ? 2.5 : 2} className="w-6 h-6" />
+                                                <Icon
+                                                    strokeWidth={isActive ? 2.5 : 2}
+                                                    className="w-5 h-5"
+                                                />
                                             </div>
+
                                             <h3
-                                                className={`text-xl font-bold transition-colors duration-300 ${isActive
-                                                    ? "text-blue-700 dark:text-blue-400"
-                                                    : "text-gray-900 dark:text-gray-100"
+                                                className={`text-lg font-bold transition-colors duration-300 ${isActive
+                                                    ? "text-asl-accent"
+                                                    : "text-asl-text-primary"
                                                     }`}
                                             >
                                                 {reason.title}
                                             </h3>
                                         </div>
-                                        <div
-                                            className={`shrink-0 transition-transform duration-500 ${isActive ? "rotate-180 text-blue-600 dark:text-blue-400" : "text-gray-400"
-                                                }`}
+
+                                        <motion.div
+                                            animate={{ rotate: isActive ? 180 : 0 }}
+                                            className={
+                                                isActive
+                                                    ? "text-asl-accent"
+                                                    : "text-asl-text-secondary"
+                                            }
                                         >
-                                            <ChevronDown className="w-6 h-6" />
-                                        </div>
+                                            <ChevronDown className="w-5 h-5" />
+                                        </motion.div>
                                     </div>
 
-                                    {/* Expanded content */}
-                                    <div
-                                        className={`px-6 md:px-8 space-y-4 overflow-hidden transition-all duration-500 ease-in-out ${isActive ? "max-h-60 pb-8 opacity-100" : "max-h-0 opacity-0"
-                                            }`}
-                                    >
-                                        <p className="text-gray-600 dark:text-gray-400 md:ml-[4.25rem] leading-relaxed">
-                                            {reason.description}
-                                        </p>
-                                    </div>
-                                </div>
+                                    {/* CONTENT */}
+                                    <AnimatePresence>
+                                        {isActive && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: "auto", opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.35, ease: "easeInOut" }}
+                                            >
+                                                <div className="px-5 md:px-6 pb-5">
+                                                    <p className="text-asl-text-secondary md:ml-[3.5rem] leading-snug">
+                                                        {reason.description}
+                                                    </p>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </motion.div>
                             );
                         })}
                     </div>
 
-                    {/* RIGHT SIDE IMAGE VIEWPORT */}
-                    <div className="sticky top-32 group hidden lg:block">
-                        {/* Soft background glow */}
-                        <div className="absolute inset-x-10 inset-y-10 bg-blue-400/20 dark:bg-blue-500/10 blur-[100px] rounded-full -z-10 group-hover:bg-blue-400/30 transition-colors duration-700" />
+                    {/* RIGHT IMAGE (STICKY) */}
+                    <div className="sticky top-24 h-fit group hidden lg:block">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.96 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            className="relative"
+                        >
+                            {/* Glow */}
+                            <div className="absolute inset-x-10 inset-y-10 bg-asl-accent/20 blur-[100px] rounded-full -z-10 group-hover:bg-asl-accent/30 transition-colors duration-700" />
 
-                        <div className="relative rounded-3xl overflow-hidden border border-gray-200/50 dark:border-gray-800/80 bg-gray-50/50 dark:bg-[#111827]/50 p-4 lg:p-6 shadow-2xl backdrop-blur-sm">
-                            <div className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-inner bg-white dark:bg-gray-900 flex items-center justify-center">
-                                <Image
-                                    key={activeIndex} // Forces re-mount for animation
-                                    src={isDark ? activeReason.images.dark : activeReason.images.light}
-                                    alt={activeReason.title}
-                                    width={1400}
-                                    height={1050}
-                                    className="w-full h-auto object-cover animate-in fade-in zoom-in-95 duration-500"
-                                    priority
-                                />
-                            </div>
-                        </div>
+                            {/* Frame */}
+                            <motion.div
+                                whileHover={{ rotateY: 5, rotateX: -2, scale: 1.02 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                className="relative rounded-md p-4 lg:p-6 shadow-2xl backdrop-blur-sm perspective-1000 border border-asl-border/50 bg-asl-bg/50"
+                            >
+                                {/* IMAGE VIEWPORT */}
+                                <div className="relative rounded-md overflow-hidden border border-asl-border bg-asl-surface">
+                                    <AnimatePresence mode="wait">
+                                        <motion.div
+                                            key={activeIndex}
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -20 }}
+                                            transition={{ duration: 0.45 }}
+                                        >
+                                            <Image
+                                                src={isDark ? activeReason.images.dark : activeReason.images.light}
+                                                alt={activeReason.title}
+                                                width={1400}
+                                                height={1050}
+                                                className="w-full h-auto"
+                                                priority
+                                            />
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
+                            </motion.div>
+                        </motion.div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -221,39 +265,39 @@ export const WhyComparisonToggle = () => {
     const isWithout = mode === "without";
 
     return (
-        <section className="pt-10 pb-20 lg:pt-16 lg:pb-32 bg-white dark:bg-[#0F172A] transition-colors relative">
+        <section className="pt-10 pb-20 lg:pt-16 lg:pb-32 bg-asl-bg transition-colors relative overflow-hidden">
             <div className="max-w-3xl mx-auto px-6 lg:px-12">
                 {/* HEADER */}
-                <div className="text-center mb-10">
-                    <p className="text-lg text-gray-500 dark:text-gray-400 font-medium">
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-10"
+                >
+                    <p className="text-lg text-asl-text-secondary font-medium">
                         Let's see the comparison.
                     </p>
-                </div>
+                </motion.div>
 
                 {/* TOGGLE PILL */}
                 <div className="flex justify-center mb-10">
-                    <div className="relative flex bg-gray-100 dark:bg-[#1F2937] rounded-full p-1.5 shadow-sm border border-gray-200/50 dark:border-gray-800">
-                        <div
-                            className={`absolute top-1.5 bottom-1.5 w-[calc(50%-3px)] rounded-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isWithout
-                                ? "left-1.5 bg-white dark:bg-[#0F172A] shadow-md border border-gray-200/50 dark:border-gray-700"
-                                : "left-[calc(50%+1.5px)] bg-blue-600 shadow-md shadow-blue-600/30 border border-transparent"
-                                }`}
+                    <div className="relative flex bg-asl-bg rounded-md p-1.5 border border-asl-border">
+                        <motion.div
+                            animate={{
+                                left: isWithout ? "6px" : "calc(50% + 2px)",
+                                backgroundColor: isWithout ? "var(--color-asl-surface)" : "var(--color-asl-accent)"
+                            }}
+                            className="absolute top-1.5 bottom-1.5 w-[calc(50%-4px)] rounded-md shadow-lg border border-asl-border/50"
                         />
                         <button
                             onClick={() => setMode("without")}
-                            className={`relative z-10 px-8 py-2.5 rounded-full text-sm font-bold transition-colors duration-300 ${isWithout
-                                ? "text-red-500"
-                                : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                }`}
+                            className={`relative z-10 px-8 py-2.5 rounded-md text-sm font-bold transition-colors duration-500 ${isWithout ? "text-asl-error" : "text-asl-text-secondary hover:text-asl-text-primary"}`}
                         >
                             Without ASL
                         </button>
                         <button
                             onClick={() => setMode("with")}
-                            className={`relative z-10 px-8 py-2.5 rounded-full text-sm font-bold transition-colors duration-300 ${!isWithout
-                                ? "text-white"
-                                : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                }`}
+                            className={`relative z-10 px-8 py-2.5 rounded-md text-sm font-bold transition-colors duration-500 ${!isWithout ? "text-white" : "text-asl-text-secondary hover:text-asl-text-primary"}`}
                         >
                             With ASL
                         </button>
@@ -261,11 +305,11 @@ export const WhyComparisonToggle = () => {
                 </div>
 
                 {/* LIST CONTAINER */}
-                <div
-                    className={`rounded-2xl shadow-sm border overflow-hidden transition-all duration-500 ${isWithout
-                        ? "bg-white dark:bg-[#1F2937] border-gray-200 dark:border-gray-800"
-                        : "bg-white dark:bg-[#1F2937] border-blue-200 dark:border-blue-900/50 shadow-blue-900/5"
-                        }`}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className={`rounded-md border overflow-hidden transition-all duration-500 bg-asl-surface ${isWithout ? "border-asl-border" : "border-asl-accent/30"}`}
                 >
                     {comparisonData.map((item, i) => {
                         const current = isWithout ? item.without : item.with;
@@ -273,51 +317,35 @@ export const WhyComparisonToggle = () => {
                         const isLast = i === comparisonData.length - 1;
 
                         return (
-                            <div
+                            <motion.div
                                 key={i}
-                                className={`flex items-center gap-5 px-6 py-5 transition-all duration-500 ${!isLast ? "border-b border-gray-100 dark:border-gray-800/80" : ""
-                                    }`}
-                                style={{ transitionDelay: `${i * 60}ms` }}
+                                initial={{ opacity: 0, x: -10 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: i * 0.05 }}
+                                className={`flex items-center gap-5 px-6 py-5 transition-all duration-500 ${!isLast ? "border-b border-asl-border/30" : ""}`}
                             >
-                                {/* Status icon */}
-                                <div
-                                    className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ${isWithout
-                                        ? "bg-red-50 dark:bg-red-900/20"
-                                        : "bg-blue-50 dark:bg-blue-900/20"
-                                        }`}
-                                    style={{ transitionDelay: `${i * 60 + 80}ms` }}
+                                <motion.div
+                                    animate={{
+                                        backgroundColor: isWithout ? "oklch(95% 0.1 20)" : "oklch(95% 0.1 250)",
+                                        scale: [1, 1.1, 1]
+                                    }}
+                                    transition={{ duration: 0.5 }}
+                                    className="shrink-0 w-10 h-10 rounded-md flex items-center justify-center opacity-10"
                                 >
-                                    {isWithout ? (
-                                        <XCircle className="w-5 h-5 text-red-500 transition-transform duration-400" />
-                                    ) : (
-                                        <CheckCircle className="w-5 h-5 text-blue-600 dark:text-blue-500 transition-transform duration-400" />
-                                    )}
-                                </div>
+                                    {isWithout ? <XCircle className="w-5 h-5 text-asl-error" /> : <CheckCircle className="w-5 h-5 text-asl-accent" />}
+                                </motion.div>
 
-                                {/* Text */}
-                                <p
-                                    className={`flex-1 text-[15px] font-medium transition-colors duration-500 ${isWithout
-                                        ? "text-gray-600 dark:text-gray-300"
-                                        : "text-gray-900 dark:text-gray-100"
-                                        }`}
-                                >
+                                <p className={`flex-1 text-[15px] font-medium transition-colors duration-500 ${isWithout ? "text-asl-text-secondary" : "text-asl-text-primary"}`}>
                                     {current.text}
                                 </p>
 
-                                {/* Context icon */}
-                                <div
-                                    className={`shrink-0 transition-all duration-500 ${isWithout
-                                        ? "text-red-300 dark:text-red-900/50"
-                                        : "text-blue-300 dark:text-blue-900/50"
-                                        }`}
-                                    style={{ transitionDelay: `${i * 60 + 120}ms` }}
-                                >
+                                <div className={`shrink-0 transition-all duration-500 ${isWithout ? "text-asl-error/40" : "text-asl-accent/30"}`}>
                                     <Icon className="w-4 h-4" />
                                 </div>
-                            </div>
+                            </motion.div>
                         );
                     })}
-                </div>
+                </motion.div>
             </div>
         </section>
     );

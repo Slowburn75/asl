@@ -5,6 +5,7 @@ import { ChevronDown, ArrowRight, Globe, Shield, Zap } from "lucide-react";
 import { Button } from "./ui/Button";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -29,59 +30,72 @@ export const FAQ = () => {
   ];
 
   return (
-    <section className="py-32 lg:py-48 bg-asl-bg relative overflow-hidden">
+    <section id="faq" className="py-32 lg:py-48 bg-asl-bg relative overflow-hidden">
       {/* Decorative Glow */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-asl-accent/5 blur-[120px] rounded-full -z-10" />
 
       <div className="container-custom relative z-10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-10 items-start mb-16 lg:mb-20">
-
-            {/* LEFT */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-6">
-                <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-                FAQ
-              </div>
-
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
-                Reliable answers for<br />
-                ambitious teams.
-              </h2>
+        <div className="max-w-7xl mx-auto px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center text-center mb-24 max-w-3xl mx-auto"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-asl-accent/10 text-asl-accent text-sm font-semibold mb-8">
+              <span className="w-2 h-2 rounded-full bg-asl-accent"></span>
+              FAQ
             </div>
 
-            {/* RIGHT */}
-            <div className="lg:pt-14">
-              <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg">
-                Everything you need to know about scaling your payroll with ASL.                        </p>
-            </div>
-          </div>
+            <h2 className="text-4xl lg:text-6xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-8">
+              Reliable answers for<br />
+              ambitious teams.
+            </h2>
+            <p className="text-xl text-asl-text-secondary leading-relaxed font-medium">
+              Everything you need to know about scaling your payroll with ASL.
+            </p>
+          </motion.div>
 
           <div className="space-y-4">
             {faqs.map((faq, i) => (
-              <div
+              <motion.div
                 key={i}
-                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${openIndex === i ? "bg-asl-surface/40 border-asl-accent/30 shadow-xl" : "bg-asl-surface/10 border-asl-border/20"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className={`border rounded-md overflow-hidden transition-all duration-500 ${openIndex === i ? "bg-asl-surface border-asl-accent shadow-xl shadow-asl-accent/5" : "bg-asl-surface border-asl-border"
                   }`}
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                  className="w-full flex items-center justify-between p-8 text-left hover:bg-asl-surface/30 transition-colors"
+                  className="w-full flex items-center justify-between p-8 text-left hover:bg-asl-bg/50 transition-colors"
                 >
-                  <span className={`text-xl font-bold ${openIndex === i ? "text-asl-text-primary" : "text-asl-text-secondary"}`}>
+                  <span className={`text-xl font-bold transition-colors duration-300 ${openIndex === i ? "text-asl-accent" : "text-asl-text-primary"}`}>
                     {faq.q}
                   </span>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all ${openIndex === i ? "bg-asl-accent border-asl-accent text-white rotate-180" : "bg-asl-text-primary/5 border-asl-border/10 text-asl-text-secondary"
-                    }`}>
+                  <motion.div
+                    animate={{ rotate: openIndex === i ? 180 : 0 }}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all ${openIndex === i ? "bg-asl-accent border-asl-accent text-white" : "bg-asl-bg border-asl-border text-asl-text-secondary"
+                      }`}>
                     <ChevronDown size={18} />
-                  </div>
+                  </motion.div>
                 </button>
-                {openIndex === i && (
-                  <div className="px-8 pb-8 text-asl-text-secondary text-lg leading-relaxed animate-[slide-up_0.3s_ease-out]">
-                    {faq.a}
-                  </div>
-                )}
-              </div>
+                <AnimatePresence>
+                  {openIndex === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                    >
+                      <div className="px-8 pb-8 text-asl-text-secondary text-lg leading-relaxed border-t border-asl-border/30 pt-4">
+                        {faq.a}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -93,12 +107,17 @@ export const FAQ = () => {
 export const CTA = () => {
   return (
     <section className="container-custom py-24 lg:py-32">
-      <div className="relative rounded-[3rem] p-12 lg:p-24 text-center overflow-hidden border border-white/10 group shadow-2xl">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        className="relative rounded-md p-12 lg:p-24 text-center overflow-hidden border border-asl-border/10 group shadow-2xl"
+      >
         {/* Complex Premium Background Gradient - Fixed Dark for Brand Impact */}
-        <div className="absolute inset-0 bg-[#0F172A] -z-20" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-asl-brand/40 via-asl-accent/30 to-blue-500/20 -z-10 opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
-        <div className="absolute -top-24 -right-24 w-[600px] h-[600px] bg-asl-accent/20 blur-[120px] rounded-full animate-pulse" />
-        <div className="absolute -bottom-24 -left-24 w-[500px] h-[500px] bg-blue-400/10 blur-[100px] rounded-full" />
+        <div className="absolute inset-0 bg-asl-brand -z-20" />
+        <div className="absolute top-[-10%] left-[20%] w-[800px] h-[800px] bg-asl-accent/5 blur-[150px] rounded-full -z-10 animate-pulse transition-opacity duration-1000" />
+        <div className="absolute bottom-[-5%] right-[10%] w-[600px] h-[600px] bg-asl-accent/5 blur-[120px] rounded-full -z-10" />
+        <div className="absolute top-[20%] right-[30%] w-[400px] h-[400px] bg-asl-brand/5 blur-[100px] rounded-full -z-10" />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 contrast-150 brightness-150 pointer-events-none -z-10" />
 
         <div className="relative z-10 max-w-[800px] mx-auto">
@@ -107,10 +126,10 @@ export const CTA = () => {
             financial future?
           </h2>
           <p className="text-2xl text-white/80 mb-14 leading-relaxed font-medium">
-            Join the enterprise-grade platform trusted by 15,000+ scaling businesses worldwide.
+            Join the enterprise-grade platform trusted by 500+ scaling businesses worldwide.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-            <Button size="lg" className="bg-white text-asl-brand hover:bg-slate-50 border-none px-12 h-18 text-xl">
+            <Button size="lg" className="bg-white text-asl-brand hover:bg-asl-surface border-none px-12 h-18 text-xl rounded-md">
               Get Started Now
             </Button>
             <Link href="#" className="flex items-center gap-3 text-white font-bold text-xl group/link transition-all">
@@ -123,7 +142,7 @@ export const CTA = () => {
         <div className="absolute top-10 left-10 w-2 h-2 rounded-full bg-asl-accent/30" />
         <div className="absolute bottom-10 right-10 w-3 h-3 rounded-full bg-asl-accent/20" />
         <div className="absolute top-1/2 right-12 w-1 h-12 bg-gradient-to-b from-transparent via-asl-accent/20 to-transparent" />
-      </div>
+      </motion.div>
     </section>
   );
 };
@@ -140,8 +159,8 @@ export const Footer = () => {
   }, []);
 
   return (
-    <footer className="pt-32 pb-16 bg-asl-bg border-t border-asl-border/20">
-      <div className="container-custom">
+    <footer className="pt-32 pb-16 bg-asl-bg border-t border-asl-border/20 relative overflow-hidden">
+      <div className="container-custom relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-6 gap-16 mb-24">
           <div className="col-span-2 space-y-10">
             <Link href="/" className="flex items-center gap-3">
@@ -158,7 +177,7 @@ export const Footer = () => {
             </p>
             <div className="flex items-center gap-5">
               {[Globe, Shield, Zap].map((Icon, i) => (
-                <Link key={i} href="#" className="w-10 h-10 rounded-full border border-asl-border/20 flex items-center justify-center text-asl-text-secondary hover:bg-asl-accent hover:text-white hover:border-asl-accent transition-all duration-300">
+                <Link key={i} href="#" className="w-10 h-10 rounded-full border border-asl-border/20 flex items-center justify-center bg-asl-surface text-asl-text-primary hover:bg-asl-surface/80 shadow-sm hover:border-asl-accent transition-all duration-300">
                   <Icon size={20} />
                 </Link>
               ))}
@@ -192,7 +211,7 @@ export const Footer = () => {
               <input
                 type="email"
                 placeholder="name@company.com"
-                className="bg-asl-surface border border-asl-border/30 rounded-xl px-4 py-3 text-sm flex-1 focus:outline-none focus:border-asl-accent transition-colors"
+                className="bg-asl-surface border border-asl-border/30 rounded-md px-4 py-3 text-sm flex-1 focus:outline-none focus:border-asl-accent transition-colors"
               />
               <Button size="sm" className="px-4">Join</Button>
             </form>
@@ -208,10 +227,21 @@ export const Footer = () => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <div className="w-2 h-2 rounded-full bg-asl-success animate-pulse" />
             <span className="text-[10px] font-black uppercase tracking-widest text-asl-text-secondary">System Status: Operational</span>
           </div>
         </div>
+      </div>
+
+      {/* LARGE LOGO WATERMARK */}
+      <div className="absolute bottom-[-15%] right-[-5%] opacity-[0.03] dark:opacity-[0.05] pointer-events-none z-0">
+        <Image
+          src={isDark ? "/asl_logo_dark.svg" : "/asl_logo_light.svg"}
+          alt=""
+          width={1200}
+          height={400}
+          className="w-[800px] lg:w-[1200px] h-auto grayscale select-none"
+        />
       </div>
     </footer>
   );

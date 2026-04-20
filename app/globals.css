@@ -2,14 +2,19 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-asl-brand: #1E3A8A;
-  --color-asl-accent: #2563EB;
+  --color-asl-brand: oklch(35% 0.15 260);
+  --color-asl-accent: oklch(55% 0.18 250);
+  --color-asl-success: var(--success);
+  --color-asl-error: var(--error);
   
   --color-asl-bg: var(--bg);
+  --color-asl-hero-bg: var(--hero-bg);
   --color-asl-surface: var(--surface);
   --color-asl-text-primary: var(--text-primary);
   --color-asl-text-secondary: var(--text-secondary);
   --color-asl-border: var(--border);
+
+  --radius: 0.75rem;
 
   --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
 
@@ -31,22 +36,40 @@
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.04), 0 4px 6px -4px rgb(0 0 0 / 0.02);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.03);
+  --shadow-2xl: 0 35px 60px -15px rgb(0 0 0 / 0.1);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 :root {
-  --bg: #FFFFFF;
-  --surface: #F8FAFC;
-  --text-primary: #0F172A;
-  --text-secondary: #6B7280;
-  --border: #E5E7EB;
+  --bg: oklch(95% 0 0);
+  --hero-bg: oklch(92.54% 0 0);
+  --surface: oklch(97% 0 0);
+  --text-primary: oklch(15% 0.02 260);
+  --text-secondary: oklch(45% 0.02 260);
+  --border: oklch(90% 0.01 260);
+  --success: oklch(75% 0.15 150);
+  --error: oklch(65% 0.2 25);
 }
 
 .dark {
-  --bg: #0F172A;
-  --surface: #1F2937;
-  --text-primary: #F9FAFB;
-  --text-secondary: #9CA3AF;
-  --border: #374151;
+  --bg: oklch(14.5% 0 0);
+  --hero-bg: oklch(14.5% 0 0);
+  --surface: oklch(20.5% 0 0);
+  --text-primary: oklch(98% 0.01 260);
+  --text-secondary: oklch(80% 0.02 260);
+  --border: oklch(30% 0.02 260);
+  --success: oklch(70% 0.12 150);
+  --error: oklch(60% 0.15 25);
 }
 
 @layer base {
@@ -71,7 +94,7 @@
   }
 
   .container-custom {
-    @apply max-w-[1280px] mx-auto px-6 lg:px-8;
+    @apply max-w-[1280px] mx-auto px-8;
   }
 
   .shimmer-text {
@@ -88,5 +111,9 @@
 
   .glow-overlay {
     @apply absolute -inset-px bg-gradient-to-br from-asl-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none;
+  }
+
+  .rounded-md {
+    border-radius: calc(var(--radius) - 2px);
   }
 }

@@ -1,58 +1,92 @@
-"use client";
-
 import { TrendingUp, Users, DollarSign, FileCheck } from "lucide-react";
+import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+
+const Counter = ({ value, suffix = "" }: { value: string; suffix?: string }) => {
+  const numericValue = parseFloat(value.replace(/[^0-9.]/g, ""));
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, {
+    damping: 30,
+    stiffness: 100,
+  });
+
+  useEffect(() => {
+    if (isInView) {
+      motionValue.set(numericValue);
+    }
+  }, [isInView, motionValue, numericValue]);
+
+  useEffect(() => {
+    springValue.on("change", (latest) => {
+      if (ref.current) {
+        const formatted = latest.toLocaleString(undefined, {
+          minimumFractionDigits: value.includes(".") ? 1 : 0,
+          maximumFractionDigits: value.includes(".") ? 1 : 0,
+        });
+        (ref.current as HTMLElement).textContent = formatted + suffix;
+      }
+    });
+  }, [springValue, value, suffix]);
+
+  return <span ref={ref}>0</span>;
+};
 
 export const Stats = () => {
   const stats = [
     {
       icon: TrendingUp,
-      value: "99.9%",
+      value: "99.9",
+      suffix: "%",
       label: "Payroll Accuracy",
     },
     {
       icon: Users,
-      value: "500+",
+      value: "500",
+      suffix: "+",
       label: "Companies Trust ASL",
     },
     {
       icon: DollarSign,
-      value: "$2.5B+",
+      value: "2.5",
+      suffix: "B+",
       label: "Processed Annually",
     },
     {
       icon: FileCheck,
-      value: "100%",
+      value: "100",
+      suffix: "%",
       label: "Compliance Rate",
     },
   ];
 
   return (
-    <section className="py-16 lg:py-20 bg-gray-50 dark:bg-[#111827] transition-colors">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-
-        {/* GRID */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+    <section className="pt-48 pb-24 lg:pt-64 lg:pb-32 bg-asl-bg transition-colors relative overflow-hidden">
+      <div className="container-custom">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {stats.map((stat, i) => (
-            <div
+            <motion.div
               key={i}
-              className="bg-white dark:bg-[#1F2937] border border-gray-200 dark:border-gray-700 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15, duration: 0.6 }}
+              className="bg-asl-surface border border-asl-border rounded-md p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group"
             >
-
-              {/* ICON (SUBTLE, NOT DOMINANT) */}
-              <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                <stat.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <div className="w-14 h-14 mx-auto mb-6 rounded-md bg-asl-accent/10 flex items-center justify-center group-hover:bg-asl-accent transition-colors duration-500">
+                <stat.icon className="w-7 h-7 text-asl-accent group-hover:text-white transition-colors duration-500" />
               </div>
 
-              {/* VALUE (MAIN FOCUS) */}
-              <div className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 tracking-tight">
-                {stat.value}
+              <div className="text-4xl lg:text-5xl font-black text-asl-text-primary tracking-tight mb-2">
+                <Counter value={stat.value} suffix={stat.suffix} />
               </div>
 
-              {/* LABEL */}
-              <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-xs font-bold text-asl-text-secondary uppercase tracking-widest">
                 {stat.label}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
