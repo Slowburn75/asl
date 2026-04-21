@@ -30,7 +30,7 @@ export const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-32 lg:py-48 bg-asl-bg relative overflow-hidden">
+    <section id="faq" className="py-20 lg:py-32 bg-asl-bg relative overflow-hidden">
       {/* Decorative Glow */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-asl-accent/5 blur-[120px] rounded-full -z-10" />
 
@@ -47,10 +47,10 @@ export const FAQ = () => {
               FAQ
             </div>
 
-            <h2 className="text-4xl lg:text-6xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-8">
-              Reliable answers for<br />
+            <h4 className="text-4xl lg:text-4xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-8">
+              Reliable answers for
               ambitious teams.
-            </h2>
+            </h4>
             <p className="text-xl text-asl-text-secondary leading-relaxed font-medium">
               Everything you need to know about scaling your payroll with ASL.
             </p>
@@ -106,7 +106,7 @@ export const FAQ = () => {
 
 export const CTA = () => {
   return (
-    <section className="container-custom py-24 lg:py-32">
+    <section className="container-custom py-16 lg:py-24">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}

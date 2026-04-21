@@ -63,7 +63,7 @@ export const Stats = () => {
   ];
 
   return (
-    <section className="pt-48 pb-24 lg:pt-64 lg:pb-32 bg-asl-bg transition-colors relative overflow-hidden">
+    <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 bg-asl-bg transition-colors relative overflow-hidden">
       <div className="container-custom">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {stats.map((stat, i) => (

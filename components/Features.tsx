@@ -175,7 +175,7 @@ export const Features = () => {
   ];
 
   return (
-    <section id="features" className="py-24 lg:py-32 bg-asl-bg transition-colors relative overflow-hidden">
+    <section id="features" className="py-16 lg:py-24 bg-asl-bg transition-colors relative overflow-hidden">
       {/* Background patterns */}
       <div className="absolute inset-0 bg-[radial-gradient(var(--color-asl-border)_1px,transparent_1px)] [background-size:32px_32px] opacity-40 -z-10" />
 
@@ -190,10 +190,9 @@ export const Features = () => {
             <Zap size={12} fill="currentColor" />
             Advanced Capability
           </div>
-          <h2 className="text-4xl lg:text-6xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-8">
-            Enterprise Grade <br />
-            Infrastructure.
-          </h2>
+          <h4 className="text-4xl lg:text-4xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-8">
+            Enterprise Grade Infrastructure
+          </h4>
           <p className="text-xl text-asl-text-secondary leading-relaxed font-medium">
             Engineered for precision and built for scale. ASL provides the technical foundation required by modern, globally distributed organizations.
           </p>

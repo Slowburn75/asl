@@ -19,34 +19,33 @@ export const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-24 lg:py-32 bg-asl-bg transition-colors relative overflow-hidden">
+    <section id="pricing" className="py-16 lg:py-24 bg-asl-bg transition-colors relative overflow-hidden">
       <div className="container-custom">
         {/* Heading */}
-        <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col items-center text-center mb-24 max-w-3xl mx-auto"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center text-center mb-24 max-w-3xl mx-auto"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-asl-accent/10 text-asl-accent text-[11px] font-black uppercase tracking-[0.2em] mb-8 border border-asl-accent/20">
             <Zap size={12} fill="currentColor" />
             Scalable Plans
           </div>
-          <h2 className="text-4xl lg:text-6xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-8">
-            Enterprise Grade <br />
-            Performance.
-          </h2>
+          <h4 className="text-4xl lg:text-4xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-8">
+            Enterprise Grade Performance
+          </h4>
           <p className="text-xl text-asl-text-secondary leading-relaxed font-medium">
             Engineered for precision and built for scale. Choose the plan that fits your current operational requirements.
           </p>
         </motion.div>
 
         {/* Table Container */}
-        <motion.div 
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="overflow-x-auto border border-asl-border rounded-md bg-asl-surface shadow-2xl shadow-asl-accent/5"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="overflow-x-auto border border-asl-border rounded-md bg-asl-surface shadow-2xl shadow-asl-accent/5"
         >
           <table className="w-full text-left border-collapse min-w-[800px]">
             {/* Table Header */}
@@ -88,11 +87,11 @@ export const Pricing = () => {
                     <div className="flex justify-center">
                       {feature.basic ? (
                         <div className="w-8 h-8 rounded-full bg-asl-success/10 flex items-center justify-center">
-                            <Check className="text-asl-success" size={16} />
+                          <Check className="text-asl-success" size={16} />
                         </div>
                       ) : (
                         <div className="w-8 h-8 rounded-full bg-asl-bg flex items-center justify-center opacity-30">
-                            <X className="text-asl-text-secondary" size={16} />
+                          <X className="text-asl-text-secondary" size={16} />
                         </div>
                       )}
                     </div>
@@ -101,9 +100,9 @@ export const Pricing = () => {
                   {/* Enterprise */}
                   <td className="p-6 lg:p-8 text-center bg-asl-accent/5">
                     <div className="flex justify-center">
-                        <div className="w-10 h-10 rounded-full bg-asl-accent flex items-center justify-center shadow-lg shadow-asl-accent/20">
-                            <Check className="text-white" size={20} />
-                        </div>
+                      <div className="w-10 h-10 rounded-full bg-asl-accent flex items-center justify-center shadow-lg shadow-asl-accent/20">
+                        <Check className="text-white" size={20} />
+                      </div>
                     </div>
                   </td>
                 </motion.tr>
@@ -114,10 +113,10 @@ export const Pricing = () => {
             <tfoot className="bg-asl-bg/30">
               <tr>
                 <td className="p-10 pl-12">
-                    <div className="flex items-center gap-3 text-sm font-bold text-asl-text-secondary uppercase tracking-widest">
-                        <ShieldCheck size={18} className="text-asl-accent" />
-                        Audit Ready Infrastructure
-                    </div>
+                  <div className="flex items-center gap-3 text-sm font-bold text-asl-text-secondary uppercase tracking-widest">
+                    <ShieldCheck size={18} className="text-asl-accent" />
+                    Audit Ready Infrastructure
+                  </div>
                 </td>
                 <td className="p-10 text-center">
                   <Button variant="outline" size="lg" className="rounded-md px-10">Start Trial</Button>

@@ -107,7 +107,7 @@ const WhyUsAccordion = () => {
     return (
         <section
             id="why"
-            className="pt-20 pb-10 lg:pt-32 lg:pb-16 bg-asl-bg transition-colors relative overflow-hidden"
+            className="pt-16 pb-10 lg:pt-24 lg:pb-16 bg-asl-bg transition-colors relative overflow-hidden"
         >
             <div className="container-custom">
 
@@ -123,10 +123,9 @@ const WhyUsAccordion = () => {
                         WHY ASL
                     </div>
 
-                    <h2 className="text-4xl lg:text-6xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-6">
-                        Everything you need,<br />
-                        built for scale.
-                    </h2>
+                    <h4 className="text-4xl lg:text-4xl font-black text-asl-text-primary leading-[1.1] tracking-tight mb-6">
+                        Everything you need, built for scale.
+                    </h4>
 
                     <p className="text-lg lg:text-xl text-asl-text-secondary leading-relaxed font-medium">
                         All the features you need to run payroll smoothly and efficiently.
@@ -232,6 +231,7 @@ const WhyUsAccordion = () => {
                             >
                                 {/* IMAGE VIEWPORT */}
                                 <div className="relative rounded-md overflow-hidden border border-asl-border bg-asl-surface">
+
                                     <AnimatePresence mode="wait">
                                         <motion.div
                                             key={activeIndex}
@@ -250,6 +250,7 @@ const WhyUsAccordion = () => {
                                             />
                                         </motion.div>
                                     </AnimatePresence>
+                                    <div className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-asl-bg via-asl-bg/40 to-transparent" />
                                 </div>
                             </motion.div>
                         </motion.div>
@@ -265,7 +266,7 @@ export const WhyComparisonToggle = () => {
     const isWithout = mode === "without";
 
     return (
-        <section className="pt-10 pb-20 lg:pt-16 lg:pb-32 bg-asl-bg transition-colors relative overflow-hidden">
+        <section className="pt-4 pb-4 lg:pt-12 lg:pb-24 bg-asl-bg transition-colors relative overflow-hidden">
             <div className="max-w-3xl mx-auto px-6 lg:px-12">
                 {/* HEADER */}
                 <motion.div
